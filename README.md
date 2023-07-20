@@ -18,20 +18,25 @@ Vagrant создст стенд из двух ВМ средствами libvirt:
 
 
 1. Проверка критичных логов: несколько раз заходим на http://192.168.50.10/error-logs-test чтобы вызвать ошибку.
-Проверим логи локально на web: cat /var/log/nginx/error.log.
-Проверим логи на удаленном log: cat /var/log/rsyslog/web/nginx_error.log.
+
+Проверим логи локально на web: > cat /var/log/nginx/error.log
+
+Проверим логи на удаленном log: > cat /var/log/rsyslog/web/nginx_error.log
 
 Итог: "Все критичные логи с web собираются и локально и удаленно"
 
 
 2. Проверка остальных логов: несколько раз заходим на http://192.168.50.10 для успешного входа.
-Проверим логи локально на web: cat /var/log/nginx/access.log.
-Проверим логи на уделенном log: cat /var/log/rsyslog/web/nginx_access.log.
+
+Проверим логи локально на web: > cat /var/log/nginx/access.log
+
+Проверим логи на уделенном log: > cat /var/log/rsyslog/web/nginx_access.log
 
 Итог: "Остальные логи собираются только удаленно"
 
 
 4. Проверка аудита, контролирующего изменения конфигурации nginx: меняем атрибут конфига chmod +x /etc/nginx/nginx.conf.
-Проверим на log-сервере, что пришла информация об изменении атрибута: ausearch -f /etc/nginx/nginx.conf.
+
+Проверим на log-сервере, что пришла информация об изменении атрибута: > ausearch -f /etc/nginx/nginx.conf
 
 Итог: "Логи аудита nginx уходят на удаленный сервер"
